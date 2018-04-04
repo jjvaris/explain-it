@@ -1,8 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import GameContainer from './GameContainer';
 import './index.css';
-import App from './App';
-import registerServiceWorker from './registerServiceWorker';
-
-ReactDOM.render(<App />, document.getElementById('root'));
-registerServiceWorker();
+//import registerServiceWorker from './registerServiceWorker';
+import GameStore from './stores/GameStore';
+const store = new GameStore();
+ReactDOM.render(
+  <GameContainer gameStore={store} />,
+  document.getElementById('root')
+);
+//registerServiceWorker();

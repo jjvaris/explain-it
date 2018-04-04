@@ -1,0 +1,19 @@
+.btn-start {
+  background-color: green;
+}
+
+.btn-skip {
+  background-color: gold;
+}
+
+.btn-reset {
+  background-color: red;
+}
+
+.btn-continue {
+  background-color: orange;
+}
+
+.btn-score {
+  background-color: blue;
+}
