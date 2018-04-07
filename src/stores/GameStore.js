@@ -1,19 +1,41 @@
 import { observable, decorate, action, computed } from 'mobx';
+import wordApi from '../api/wordApi';
 
 class GameStore {
-  /* observable */
-  started = false;
-  score = 0;
-  startTime = 10;
-  time = this.startTime;
-  word = 'Tähän tulee sana: ';
+  constructor() {
+    /* observable */
+    this.started = false;
+    this.score = 0;
+    this.startTime = 10;
+    this.time = this.startTime;
+    this.word = 'Press Start';
+    /* non-observable */
+    this.timer = null;
+    this.language = 'fi';
+    this.words = [];
+    this.seenWords = [];
+    this.init();
+  }
 
-  /* non-observable */
-  timer = null;
+  init = () => {
+    this.fetchWords();
+  };
+
+  fetchWords = () => {
+    wordApi
+      .getWordsByLanguage(this.language)
+      .then(words => {
+        this.words = words;
+      })
+      .catch(error => {
+        console.log('Error while requesting words', error);
+      });
+  };
 
   startGame = () => {
     this.time = this.startTime;
     this.started = true;
+    this.word = this._getRandomWord();
     this.timer = setInterval(() => {
       this.time--;
       if (this.time === 0) this._resetTimer();
@@ -29,12 +51,12 @@ class GameStore {
 
   nextWord = () => {
     this.score++;
-    this.word = 'Sana ' + this.score;
+    this.word = this._getRandomWord();
   };
 
   skipWord = () => {
     this.score--;
-    this.word = 'Sana ' + this.score;
+    this.word = this._getRandomWord();
   };
 
   get isTimeOut() {
@@ -51,6 +73,20 @@ class GameStore {
       this.timer = null;
     }
   };
+
+  _getRandomWord = index => {
+    let wordIndex = index || Math.floor(Math.random() * this.words.length);
+    if (!this._isWordSeen(wordIndex)) {
+      this.seenWords[wordIndex] = true;
+      return this.words[wordIndex].toUpperCase();
+    }
+    if (this._isAllWordsSeen()) this.seenWords = [];
+    this._getRandomWord(++wordIndex < this.words.length ? wordIndex : 0);
+  };
+
+  _isWordSeen = index => this.seenWords[index];
+
+  _isAllWordsSeen = () => this.seenWords.length === this.words.length;
 }
 
 decorate(GameStore, {
@@ -58,6 +94,7 @@ decorate(GameStore, {
   score: observable,
   time: observable,
   word: observable,
+  fetchWords: action,
   startGame: action,
   resetGame: action,
   nextWord: action,
