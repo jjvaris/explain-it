@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const root = process.env.PUBLIC_URL;
+const publicUrl = process.env.PUBLIC_URL;
 
 const wordApi = {
   getWordsByLanguage(lng) {
@@ -8,7 +8,7 @@ const wordApi = {
       const words = getCachedWords();
       return new Promise(resolve => resolve(words));
     }
-    return axios.get(`${root}/words/${lng}.json`).then(response => {
+    return axios.get(`${publicUrl}/words/${lng}.json`).then(response => {
       const data = response.data;
       cacheResponseData(lng, data);
       return data;
