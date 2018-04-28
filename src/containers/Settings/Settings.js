@@ -5,6 +5,7 @@ import ListItem from '../../components/ListItem/ListItem';
 import languages from './languages';
 import { translate } from 'react-i18next';
 import { Redirect } from 'react-router-dom';
+import { inject, observer } from 'mobx-react';
 
 class Settings extends Component {
   state = {
@@ -44,4 +45,4 @@ class Settings extends Component {
   }
 }
 
-export default translate()(Settings);
+export default translate()(inject('gameStore')(observer(Settings)));

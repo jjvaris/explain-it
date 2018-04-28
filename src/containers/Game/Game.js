@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Grid from '../../components/Grid/Grid';
 import Row from '../../components/Row/Row';
 import Button from '../../components/Button/Button';
-import { observer } from 'mobx-react';
+import { observer, inject } from 'mobx-react';
 import { translate } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
@@ -66,4 +66,4 @@ class Game extends Component {
   }
 }
 
-export default translate()(observer(Game));
+export default translate()(inject('gameStore')(observer(Game)));
