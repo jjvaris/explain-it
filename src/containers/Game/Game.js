@@ -1,18 +1,14 @@
 import React, { Component } from 'react';
-//import GameBoard from './components/GameBoard/GameBoard';
-//import UpperSide from './components/UpperSide/UpperSide';
-//import Controls from './containers/Controls/Controls';
 import Grid from '../../components/Grid/Grid';
 import Row from '../../components/Row/Row';
 import Button from '../../components/Button/Button';
 import { observer } from 'mobx-react';
 import { translate } from 'react-i18next';
 import { Link } from 'react-router-dom';
-//const store = new GameStore();
 
 class Game extends Component {
   render() {
-    // translator
+    // i18n translator
     const { t } = this.props;
     // store state
     const { time, word, started, score, isTimeOut } = this.props.gameStore;
@@ -69,6 +65,5 @@ class Game extends Component {
     );
   }
 }
-//<UpperSide time={time} word={word} />
-//<Controls gameStore={store} />
+
 export default translate()(observer(Game));
