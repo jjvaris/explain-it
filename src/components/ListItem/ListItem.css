@@ -1,0 +1,8 @@
+li {
+  border-bottom: 1px solid grey;
+  padding: 10px;
+}
+
+.selected-item {
+  background-color: dodgerblue;
+}

@@ -1,0 +1,20 @@
+.settings-header {
+  font-size: x-large;
+  border-bottom: 1px solid grey;
+  position: sticky;
+  top: 0;
+  width: 100%;
+  background-color: white;
+  text-align: left;
+}
+
+.settings-header button {
+  width: 60px;
+  height: 60px;
+  border: none;
+  font-size: x-large;
+}
+
+.settings-header span {
+  padding-left: 30px;
+}

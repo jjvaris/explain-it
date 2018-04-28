@@ -1,19 +1,25 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Game from './containers/Game/Game';
+import Settings from './containers/Settings/Settings';
+import GameStore from './stores/GameStore';
+import GameBoard from './components/GameBoard/GameBoard';
+import { BrowserRouter, Route } from 'react-router-dom';
+import i18n from './i18n';
+
+const store = new GameStore(i18n.lng());
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
+      <BrowserRouter>
+        <GameBoard>
+          <Route path="/" exact render={() => <Game gameStore={store} />} />
+          <Route
+            path="/settings"
+            render={() => <Settings gameStore={store} />}
+          />
+        </GameBoard>
+      </BrowserRouter>
     );
   }
 }

@@ -6,6 +6,7 @@
   left: 15px;
   bottom: 15px;
   text-align: center;
+  overflow: auto;
 }
 
 @media screen and (min-width: 550px) and (orientation: landscape) {

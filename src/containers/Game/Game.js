@@ -2,23 +2,28 @@ import React, { Component } from 'react';
 //import GameBoard from './components/GameBoard/GameBoard';
 //import UpperSide from './components/UpperSide/UpperSide';
 //import Controls from './containers/Controls/Controls';
-import Grid from './components/Grid/Grid';
-import Row from './components/Row/Row';
-import Button from './components/Button/Button';
+import Grid from '../../components/Grid/Grid';
+import Row from '../../components/Row/Row';
+import Button from '../../components/Button/Button';
 import { observer } from 'mobx-react';
-
+import { translate } from 'react-i18next';
+import { Link } from 'react-router-dom';
 //const store = new GameStore();
 
-class GameContainer extends Component {
+class Game extends Component {
   render() {
+    // translator
+    const { t } = this.props;
     // store state
     const { time, word, started, score, isTimeOut } = this.props.gameStore;
     // store actions
     const { startGame, nextWord, skipWord, resetGame } = this.props.gameStore;
     return (
-      <div className="game-board">
+      <React.Fragment>
         <div className="top">
-          <div>Settings</div>
+          <div className="settings-back-button">
+            <Link to="/settings">Settings</Link>
+          </div>
           <div>{time}</div>
           <div>{word}</div>
         </div>
@@ -29,7 +34,7 @@ class GameContainer extends Component {
               bStyle="start"
               onClick={started ? nextWord : startGame}
             >
-              {started ? 'Next' : 'Start'}
+              {started ? t('next') : t('start')}
             </Button>
           </Row>
           <Row>
@@ -38,7 +43,7 @@ class GameContainer extends Component {
               bStyle="skip"
               onClick={skipWord}
             >
-              Skip
+              {t('skip')}
             </Button>
           </Row>
           <Row>
@@ -47,7 +52,7 @@ class GameContainer extends Component {
               bStyle={isTimeOut ? 'continue' : 'reset'}
               onClick={isTimeOut ? startGame : resetGame}
             >
-              {isTimeOut ? 'Continue' : 'Reset'}
+              {isTimeOut ? t('continue') : t('reset')}
             </Button>
           </Row>
           <Row>
@@ -60,10 +65,10 @@ class GameContainer extends Component {
             </Button>
           </Row>
         </Grid>
-      </div>
+      </React.Fragment>
     );
   }
 }
 //<UpperSide time={time} word={word} />
 //<Controls gameStore={store} />
-export default observer(GameContainer);
+export default translate()(observer(Game));

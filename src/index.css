@@ -25,3 +25,8 @@ body {
     margin-right: auto;
   }
 }
+
+.settings-back-button {
+  width: 100%;
+  text-align: left;
+}

@@ -2,7 +2,7 @@ import { observable, decorate, action, computed } from 'mobx';
 import wordApi from '../api/wordApi';
 
 class GameStore {
-  constructor() {
+  constructor(language) {
     /* observable */
     this.started = false;
     this.score = 0;
@@ -11,19 +11,14 @@ class GameStore {
     this.word = 'Press Start';
     /* non-observable */
     this.timer = null;
-    this.language = 'fi';
     this.words = [];
     this.seenWords = [];
-    this.init();
+    this.fetchWords(language || 'en');
   }
 
-  init = () => {
-    this.fetchWords();
-  };
-
-  fetchWords = () => {
+  fetchWords = lng => {
     wordApi
-      .getWordsByLanguage(this.language)
+      .getWordsByLanguage(lng)
       .then(words => {
         this.words = words;
       })
@@ -46,6 +41,7 @@ class GameStore {
     this.started = false;
     this.score = 0;
     this.word = 'Press Start';
+    this.time = this.startTime;
     this._resetTimer();
   };
 
@@ -99,6 +95,7 @@ decorate(GameStore, {
   resetGame: action,
   nextWord: action,
   skipWord: action,
+  changeLanguage: action,
   isTimeOut: computed,
   currentWord: computed
 });
