@@ -5,10 +5,10 @@ class GameStore {
   constructor(language) {
     /* observable */
     this.started = false;
-    this.score = 0;
     this.startTime = 10;
     this.time = this.startTime;
     this.word = 'Press Start';
+    this.playedWords = [];
     /* non-observable */
     this.timer = null;
     this.words = [];
@@ -19,9 +19,12 @@ class GameStore {
   fetchWords = lng => {
     wordApi
       .getWordsByLanguage(lng)
-      .then(words => {
-        this.words = words;
-      })
+      .then(
+        action(words => {
+          this.words = [];
+          words.forEach(word => this.words.push(word.toUpperCase()));
+        })
+      )
       .catch(error => {
         console.log('Error while requesting words', error);
       });
@@ -39,20 +42,25 @@ class GameStore {
 
   resetGame = () => {
     this.started = false;
-    this.score = 0;
+    this.playedWords = [];
     this.word = 'Press Start';
     this.time = this.startTime;
     this._resetTimer();
   };
 
   nextWord = () => {
-    this.score++;
+    this.playedWords.push({ word: this.word, guessed: true });
     this.word = this._getRandomWord();
   };
 
   skipWord = () => {
-    this.score--;
+    this.playedWords.push({ word: this.word, guessed: false });
     this.word = this._getRandomWord();
+  };
+
+  toggleWordGuessedState = word => {
+    console.log('item clicked', word);
+    word.guessed = !word.guessed;
   };
 
   get isTimeOut() {
@@ -63,6 +71,12 @@ class GameStore {
     return `${this.word} ${this.score}`;
   }
 
+  get score() {
+    let score = 0;
+    this.playedWords.forEach(word => (word.guessed ? score++ : score--));
+    return score;
+  }
+
   _resetTimer = () => {
     if (this.timer) {
       clearInterval(this.timer);
@@ -71,10 +85,11 @@ class GameStore {
   };
 
   _getRandomWord = index => {
+    console.log(this.seenWords);
     let wordIndex = index || Math.floor(Math.random() * this.words.length);
     if (!this._isWordSeen(wordIndex)) {
       this.seenWords[wordIndex] = true;
-      return this.words[wordIndex].toUpperCase();
+      return this.words[wordIndex];
     }
     if (this._isAllWordsSeen()) this.seenWords = [];
     this._getRandomWord(++wordIndex < this.words.length ? wordIndex : 0);
@@ -87,17 +102,19 @@ class GameStore {
 
 decorate(GameStore, {
   started: observable,
-  score: observable,
   time: observable,
   word: observable,
+  playedWords: observable,
   fetchWords: action,
   startGame: action,
   resetGame: action,
   nextWord: action,
   skipWord: action,
   changeLanguage: action,
+  toggleWordGuessedState: action,
   isTimeOut: computed,
-  currentWord: computed
+  currentWord: computed,
+  score: computed
 });
 
 export default GameStore;

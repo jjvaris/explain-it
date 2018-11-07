@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import SettingsHeader from '../../components/SettingsHeader/SettingsHeader';
 import List from '../../components/List/List';
-import ListItem from '../../components/ListItem/ListItem';
+import LanguageItem from '../../components/LanguageItem/LanguageItem';
 import languages from './languages';
 import { translate } from 'react-i18next';
 import { Redirect } from 'react-router-dom';
@@ -30,14 +30,14 @@ class Settings extends Component {
         <SettingsHeader>{t('languageDropdown')}</SettingsHeader>
         <List>
           {languages.map(lng => (
-            <ListItem
+            <LanguageItem
               onClick={this.handleLanguageSelect}
               key={lng.code}
               lng={lng.code}
               selected={currentLng === lng.code}
             >
               {lng.language}
-            </ListItem>
+            </LanguageItem>
           ))}
         </List>
       </React.Fragment>

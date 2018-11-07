@@ -52,13 +52,11 @@ class Game extends Component {
             </Button>
           </Row>
           <Row>
-            <Button
-              enabled={isTimeOut || started}
-              bStyle="score"
-              onClick={this.handleScoreClick}
-            >
-              {score}
-            </Button>
+            <Link to="/guessed">
+              <Button enabled={isTimeOut || started} bStyle="score">
+                {score}
+              </Button>
+            </Link>
           </Row>
         </Grid>
       </React.Fragment>

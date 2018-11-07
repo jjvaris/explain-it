@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import './ListItem.css';
+import './LanguageItem.css';
 import classNames from 'classnames';
 
-class ListItem extends Component {
+class LanguageItem extends Component {
   componentDidMount() {
     if (this.props.selected) {
       this.item.scrollIntoView({ block: 'center' });
@@ -25,4 +25,4 @@ class ListItem extends Component {
   }
 }
 
-export default ListItem;
+export default LanguageItem;
