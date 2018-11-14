@@ -1,6 +1,10 @@
 ## Explain it game
 
-Word explaining game build with React (under development)
+Word explaining game build with React (under development).
+
+This project will replace the original [Explain it](https://play.google.com/store/apps/details?id=com.varis.sanaselityspeli) Android game.
+
+---
 
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
