@@ -27,7 +27,7 @@ class Settings extends Component {
     const currentLng = i18n.lng();
     return (
       <React.Fragment>
-        <SettingsHeader>{t('languageDropdown')}</SettingsHeader>
+        <SettingsHeader title={t('languageDropdown')} />
         <List>
           {languages.map(lng => (
             <LanguageItem

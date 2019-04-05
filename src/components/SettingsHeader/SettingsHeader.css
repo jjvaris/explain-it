@@ -1,20 +1,21 @@
 .settings-header {
-  font-size: x-large;
-  border-bottom: 1px solid grey;
+  /* border-bottom: 1px solid grey; */
   position: sticky;
   top: 0;
-  width: 100%;
-  background-color: white;
-  text-align: left;
+  height: 80px;
+  z-index: 1;
+  background-color: #32c8de;
+  /* align-items: center; */
+  display: grid;
+  grid-template-columns: 60px auto;
+  padding: 20px;
 }
 
-.settings-header button {
-  width: 60px;
-  height: 60px;
-  border: none;
-  font-size: x-large;
+.settings-header__btn {
+  text-align: start;
 }
 
-.settings-header span {
-  padding-left: 30px;
+.settings-header > span {
+  font-size: 2.2em;
+  margin-left: -60px;
 }

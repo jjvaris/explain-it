@@ -3,7 +3,7 @@ import './GameBoard.css';
 
 class GameBoard extends Component {
   render() {
-    return <div className="game-board">{this.props.children}</div>;
+    return <div className="game">{this.props.children}</div>;
   }
 }
 

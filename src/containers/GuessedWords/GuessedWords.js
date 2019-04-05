@@ -7,6 +7,7 @@ import WordItem from '../../components/WordItem/WordItem';
 
 class GuessedWords extends Component {
   render() {
+    const { t } = this.props;
     const { playedWords, toggleWordGuessedState } = this.props.gameStore;
 
     const wordItems = playedWords
@@ -21,7 +22,7 @@ class GuessedWords extends Component {
 
     return (
       <React.Fragment>
-        <SettingsHeader>Arvatut sanat</SettingsHeader>
+        <SettingsHeader title={t('playedWords')} />
         <List>{wordItems}</List>
       </React.Fragment>
     );

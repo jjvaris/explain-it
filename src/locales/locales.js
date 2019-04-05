@@ -12,9 +12,10 @@ export default {
       language: 'English',
       languageDropdown: 'Language',
       exitConfirmation: 'Are you sure you want to exit?',
-      resetConfirmation: 'Reset game?',
+      confirmReset: 'Reset game?',
       cancel: 'Cancel',
-      yes: 'Yes'
+      yes: 'Yes',
+      playedWords: 'Played words'
     }
   },
   fi: {
@@ -30,9 +31,10 @@ export default {
       language: 'Finnish',
       languageDropdown: 'Kieli',
       exitConfirmation: 'Lopeta peli?',
-      resetConfirmation: 'Nollaa peli?',
+      confirmReset: 'Nollaa peli?',
       cancel: 'Peruuta',
-      yes: 'Kyllä'
+      yes: 'Kyllä',
+      playedWords: 'Pelatut sanat'
     }
   },
   it: {
@@ -48,9 +50,10 @@ export default {
       language: 'Italian',
       languageDropdown: 'Lingue',
       exitConfirmation: 'Uscita?',
-      resetConfirmation: 'Azzera gioco?',
+      confirmReset: 'Azzera gioco?',
       cancel: 'Cancellare',
-      yes: 'Si'
+      yes: 'Si',
+      playedWords: 'Played words'
     }
   }
 };

@@ -2,18 +2,19 @@ import { observable, decorate, action, computed } from 'mobx';
 import wordApi from '../api/wordApi';
 
 class GameStore {
-  constructor(language) {
+  constructor(i18n) {
     /* observable */
     this.started = false;
     this.startTime = 10;
     this.time = this.startTime;
-    this.word = 'Press Start';
+    this.word = null;
     this.playedWords = [];
+    this.confirmReset = false;
     /* non-observable */
     this.timer = null;
     this.words = [];
     this.seenWords = [];
-    this.fetchWords(language || 'en');
+    this.fetchWords(i18n.lng() || 'en');
   }
 
   fetchWords = lng => {
@@ -34,6 +35,7 @@ class GameStore {
     this.time = this.startTime;
     this.started = true;
     this.word = this._getRandomWord();
+    this.confirmReset = false;
     this.timer = setInterval(() => {
       this.time--;
       if (this.time === 0) this._resetTimer();
@@ -41,21 +43,28 @@ class GameStore {
   };
 
   resetGame = () => {
-    this.started = false;
-    this.playedWords = [];
-    this.word = 'Press Start';
-    this.time = this.startTime;
-    this._resetTimer();
+    if (this.confirmReset) {
+      this.started = false;
+      this.playedWords = [];
+      this.word = null;
+      this.time = this.startTime;
+      this.confirmReset = false;
+      this._resetTimer();
+    } else {
+      this.confirmReset = true;
+    }
   };
 
   nextWord = () => {
     this.playedWords.push({ word: this.word, guessed: true });
     this.word = this._getRandomWord();
+    this.confirmReset = false;
   };
 
   skipWord = () => {
     this.playedWords.push({ word: this.word, guessed: false });
     this.word = this._getRandomWord();
+    this.confirmReset = false;
   };
 
   toggleWordGuessedState = word => {
@@ -105,6 +114,7 @@ decorate(GameStore, {
   time: observable,
   word: observable,
   playedWords: observable,
+  confirmReset: observable,
   fetchWords: action,
   startGame: action,
   resetGame: action,

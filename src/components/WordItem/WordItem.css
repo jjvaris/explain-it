@@ -1,4 +1,30 @@
-li {
-  border-bottom: 1px solid grey;
-  padding: 10px;
+.word-item {
+  display: grid;
+  grid-template-columns: 50px auto 50px;
+  align-items: center;
+}
+
+.word-item__switch {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  background: none;
+  outline: 0;
+}
+
+.word-item__switch--x {
+  /* color:  */
+}
+
+.word-item__switch--v {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.word-item__word {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

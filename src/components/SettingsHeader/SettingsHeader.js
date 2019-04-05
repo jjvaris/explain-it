@@ -1,14 +1,18 @@
 import React from 'react';
 import './SettingsHeader.css';
 import { Link } from 'react-router-dom';
+import Close from '../Close/Close';
 
-const SettingsHeader = ({ children }) => {
+const SettingsHeader = ({ title }) => {
   return (
     <div className="settings-header">
-      <Link to="/">
-        <button>{'<'}</button>
-      </Link>
-      <span>{children}</span>
+      <div className="settings-header__btn">
+        <Link to="/">
+          <Close />
+        </Link>
+      </div>
+
+      <span>{title}</span>
     </div>
   );
 };
